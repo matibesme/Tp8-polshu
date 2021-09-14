@@ -29,8 +29,7 @@ public class InicioSesionFragment extends Fragment {
     Button btnIn;
     EditText edtEmail;
     EditText edtPassword;
-  /*  ProgressBar pgCargando2;
-    ConstraintLayout clInicionSesion;*/
+
 
     public InicioSesionFragment() {
         // Required empty public constructor
@@ -46,7 +45,7 @@ public class InicioSesionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         layoutRhoot = inflater.inflate(R.layout.fragment_inicio_sesion, container, false);
         ObtenerReferencias();
         SetearListners();
@@ -65,7 +64,7 @@ public class InicioSesionFragment extends Fragment {
             else{
                 /*clInicionSesion.setVisibility(View.GONE);
                 pgCargando2.setVisibility(View.VISIBLE);*/
-                Login login = new Login(mail,clave);
+                Login login = new Login();
                 login.execute();
 
             }
@@ -91,69 +90,36 @@ public class InicioSesionFragment extends Fragment {
 
 
 
-    public class Login extends AsyncTaskBase  {
-        super(ApiHelper.devolverUrlParaGet("Prestamos","recomendados",String.valueOf(montoMax)));
-    }
+    private class Login extends AsyncTaskBase {
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        toastes.msj(getContext(),"Cargando por favor espero...");
-    }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        if (s!=null){
-            Gson miGson = new Gson();
-            resultado = miGson.fromJson(s,PrestamoRecomendadoDTO[].class);
-            ListaAdaptora nuevoAdapter = new ListaAdaptora(getActivity(),R.layout.my_list_item_listview, Arrays.asList(resultado.clone()));
-            listView.setAdapter(nuevoAdapter);
-
+        public Login() {
+            super(ApiHelper.devolverUrlParaGet(edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim()));
         }
 
-        pgCargando.setVisibility(View.GONE);
-        clMenu.setVisibility(View.VISIBLE);
-
-
-    }
-}
-
-
-
-
-public class Login extends AsyncTaskBase {
-
-        public Login(){
-            super(RequestMethods.POST,ApiHelper.devolverUrlParaGet("Usuarios","login"));
-            this.mail = mail;
-            this.password = password;
-        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            this.setParams("Mail",mail);
-            this.setParams("Password",password);
+            Toast.makeText(getContext(), "Cargando por favor espero...", Toast.LENGTH_SHORT).show();
+
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.equals("")){/*pgCargando2.setVisibility(View.INVISIBLE) ;clInicionSesion.setVisibility(View.VISIBLE);*/ Toast.makeText(getContext(),"Usuario o contraseña incorrectas ",Toast.LENGTH_SHORT).show();
-            } else {
-                Gson miGson = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                    .create();
-                Session.currentUser = miGson.fromJson(s,Usuario.class);
+            if (s != null) {
+                Gson miGson = new Gson();
+                Session.currentUser = miGson.fromJson(s, Usuario.class);
 
                 MainActivity actividadContenedora;
                 actividadContenedora = (MainActivity) getActivity();
-                actividadContenedora.cambioActivity();
+
+                actividadContenedora.setFragmentMenu();
+
             }
 
 
         }
-
     }
 }
 

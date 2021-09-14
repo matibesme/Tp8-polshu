@@ -97,7 +97,7 @@ public class  AsyncTaskBase extends AsyncTask<Void, Void ,String> {
             CustomLog.logObject(request);
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
             if (Session.currentUser != null)
-                con.setRequestProperty("ApiKey", Session.currentUser.getApiKey()); // optional api key
+                con.setRequestProperty("ApiKey", Session.currentUser.getTokenKey()); // optional api key
 
             CustomLog.log("connecting");
             if (con.getResponseCode() == 200) {
