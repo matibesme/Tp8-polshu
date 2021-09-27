@@ -97,7 +97,9 @@ public class  AsyncTaskBase extends AsyncTask<Void, Void ,String> {
             CustomLog.logObject(request);
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
             if (Session.currentUser != null)
-                con.setRequestProperty("ApiKey", Session.currentUser.getTokenKey()); // optional api key
+                con.setRequestProperty("tokenKey", Session.currentUser.getTokenKey());
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
 
             CustomLog.log("connecting");
             if (con.getResponseCode() == 200) {
@@ -106,6 +108,7 @@ public class  AsyncTaskBase extends AsyncTask<Void, Void ,String> {
                 response = StreamHelper.returnJsonAsString(con.getInputStream());
             } else {
                 CustomLog.log("error when connecting to the api");
+
                 //https://www.youtube.com/watch?v=ZYwxmsPRo-Q
             }
             con.disconnect();

@@ -15,6 +15,18 @@ public class ApiHelper {
 
     }
 
+    public static String devolverUrlMarcas(String tokenKey){
+        String urlFinal = String.format("http://api.polshu.com.ar/api/v1/tablas/marcas/");;
+
+
+        urlFinal += String.format("%s",tokenKey);
+
+        return urlFinal;
+
+
+
+    }
+
 
 
     }

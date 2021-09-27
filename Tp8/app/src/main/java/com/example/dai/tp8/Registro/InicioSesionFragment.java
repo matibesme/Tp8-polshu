@@ -17,6 +17,7 @@ import com.example.dai.tp8.MainActivity;
 import com.example.dai.tp8.Usuario;
 import com.example.dai.tp8.R;
 import com.example.dai.tp8.Utilidades.ApiHelper;
+import com.example.dai.tp8.Utilidades.CustomLog;
 import com.example.dai.tp8.Utilidades.Session;
 
 import com.google.gson.Gson;
@@ -100,23 +101,31 @@ public class InicioSesionFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getContext(), "Cargando por favor espero...", Toast.LENGTH_SHORT).show();
+
 
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (s != null) {
+
+
                 Gson miGson = new Gson();
+
                 Session.currentUser = miGson.fromJson(s, Usuario.class);
 
+                //CustomLog.logObject(Session.currentUser);
+            if (Session.currentUser==null){
+                Toast.makeText(getContext(), "Chino se la come", Toast.LENGTH_SHORT).show();
+            }else{
                 MainActivity actividadContenedora;
                 actividadContenedora = (MainActivity) getActivity();
 
                 actividadContenedora.setFragmentMenu();
-
             }
+
+
+
 
 
         }
