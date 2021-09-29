@@ -50,6 +50,9 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         layoutRhoot= inflater.inflate(R.layout.fragment_menu, container, false);
+        listView = (ListView) layoutRhoot.findViewById(R.id.listView);
+        MarcasAsinc marcasAsinc=new MarcasAsinc();
+        marcasAsinc.execute();
         return layoutRhoot;
     }
 
@@ -70,40 +73,36 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        class MarcasAsinc extends AsyncTaskBase {
 
-
-            public MarcasAsinc() {
-                super(ApiHelper.devolverUrlMarcas(Session.currentUser.getTokenKey()));
-            }
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if (s!=null){
-                    Gson miGson = new Gson();
-                    resultado = miGson.fromJson(s,Marcas[].class);
-                    ListAdapter nuevoAdapter = new ArrayAdapter<Marcas>(getActivity(),android.R.layout.simple_list_item_1, Arrays.asList(resultado.clone()));
-                    listView.setAdapter(nuevoAdapter);
-
-                }
-
-
-
-
-            }
         }
 
+   private class MarcasAsinc extends AsyncTaskBase {
 
-        private void ObtenerReferencia() {
-        listView = (ListView) layoutRhoot.findViewById(R.id.listView);
+
+        public MarcasAsinc() {
+            super(ApiHelper.devolverUrlMarcas(Session.currentUser.getTokenKey()));
         }
 
-    }
-}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+                Gson miGson = new Gson();
+                resultado = miGson.fromJson(s,Marcas[].class);
+                ListAdapter nuevoAdapter = new ArrayAdapter<Marcas>(getActivity(),android.R.layout.simple_list_item_1, Arrays.asList(resultado.clone()));
+                listView.setAdapter(nuevoAdapter);
+
+
+
+
+
+
+        }
+
+    }}
