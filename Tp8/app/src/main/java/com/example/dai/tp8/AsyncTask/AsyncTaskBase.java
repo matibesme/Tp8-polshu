@@ -96,12 +96,12 @@ public class  AsyncTaskBase extends AsyncTask<Void, Void ,String> {
             URL request = new URL(url);
             CustomLog.logObject(request);
             HttpURLConnection con = (HttpURLConnection) request.openConnection();
-            if (Session.currentUser != null)
+            if (Session.currentUser != null){
                 con.setRequestProperty("tokenKey", Session.currentUser.getTokenKey());
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
-
-            CustomLog.log("connecting");
+            CustomLog.log(Session.currentUser.getTokenKey());
+            CustomLog.log("connecting");}
             if (con.getResponseCode() == 200) {
                 CustomLog.log("Connection OK");
                 if (jsonParam.length() >0) OutputStreamHelper.writeOutPut(con.getOutputStream(),jsonParam);

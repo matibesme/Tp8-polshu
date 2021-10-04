@@ -19,7 +19,7 @@ public class ApiHelper {
         String urlFinal = String.format("http://api.polshu.com.ar/api/v1/tablas/marcas/");;
 
 
-        urlFinal += String.format("%s",tokenKey);
+
 
         return urlFinal;
 
