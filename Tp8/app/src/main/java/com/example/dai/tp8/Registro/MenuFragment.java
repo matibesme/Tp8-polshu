@@ -21,6 +21,7 @@ import com.example.dai.tp8.R;
 import com.example.dai.tp8.Utilidades.ApiHelper;
 import com.example.dai.tp8.Utilidades.CustomLog;
 import com.example.dai.tp8.Utilidades.Session;
+import com.example.dai.tp8.Utilidades.marcasAdapter;
 import com.google.gson.Gson;
 
 import java.io.Console;
@@ -36,6 +37,7 @@ public class MenuFragment extends Fragment {
     ArrayList<Marcas> prestamoList;
     ArrayList<Marcas> prestamoListApi=new ArrayList<>();
     Marcas[] resultado;
+    ArrayAdapter<Marcas> adapter;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -102,8 +104,8 @@ public class MenuFragment extends Fragment {
                 resultado = miGson.fromJson(s,Marcas[].class);
 
 
-                ListAdapter nuevoAdapter = new ArrayAdapter<Marcas>(getActivity(),android.R.layout.simple_list_item_1, Arrays.asList(resultado.clone()));
-                listView.setAdapter(nuevoAdapter);
+               adapter = new marcasAdapter(getActivity(),R.layout.my_list_item, Arrays.asList(resultado.clone()));
+                listView.setAdapter(adapter);
 
 
 
