@@ -58,6 +58,7 @@ public class MenuFragment extends Fragment {
         listView = (ListView) layoutRhoot.findViewById(R.id.listView);
         MarcasAsinc marcasAsinc=new MarcasAsinc();
         marcasAsinc.execute();
+        SetearListners();
         return layoutRhoot;
     }
 
@@ -69,9 +70,11 @@ public class MenuFragment extends Fragment {
 
                 Marcas pestamoSolici = resultado[position] ;
 
-
                 MainActivity actividadContenedora;
                 actividadContenedora = (MainActivity) getActivity();
+
+                actividadContenedora.setFragmentInsertar();
+
 
 
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.dai.tp8.Registro.InicioSesionFragment;
+import com.example.dai.tp8.Registro.InsertarFragment;
 import com.example.dai.tp8.Registro.MenuFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     InicioSesionFragment fragmentInicioSesion;
     MenuFragment fragmentMenu;
+    InsertarFragment fragmentInsertar;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void crearFragments() {
         fragmentInicioSesion = new InicioSesionFragment();
         fragmentMenu= new MenuFragment();
+        fragmentInsertar= new InsertarFragment();
 
 
     }
@@ -74,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     public  void setFragmentMenu(){
 
         reemplazarFragments(fragmentMenu);
+    }
+
+    public  void setFragmentInsertar(){
+
+        reemplazarFragments(fragmentInsertar);
     }
 
 

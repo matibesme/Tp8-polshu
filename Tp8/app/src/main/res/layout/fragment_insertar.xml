@@ -7,11 +7,12 @@
     tools:context=".Registro.InsertarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnInsertar"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="452dp"
